@@ -340,6 +340,18 @@ namespace osvr {
                                     m_doingOkay = false;
                                     mQuit = true;
                                 }
+                                if (bufferInfoItr->second.atwBuffer.D3D11 == nullptr) {
+                                  std::cerr << "ATW thread: NULL buffer pointer, "
+                                    << "buffer " << i << std::endl;
+                                  m_doingOkay = false;
+                                  mQuit = true;
+                                }
+                                if (bufferInfoItr->second.atwBuffer.D3D11->colorBuffer == nullptr) {
+                                  std::cerr << "ATW thread: NULL color buffer, "
+                                    << "buffer " << i << std::endl;
+                                  m_doingOkay = false;
+                                  mQuit = true;
+                                }
                                 atwRenderBuffers.push_back(bufferInfoItr->second.atwBuffer);
                             }
                             if (atwRenderBuffers.size() == 0) {
