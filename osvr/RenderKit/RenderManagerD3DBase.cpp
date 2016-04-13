@@ -1129,10 +1129,10 @@ namespace renderkit {
         shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
         shaderResourceViewDesc.Texture2D.MipLevels = 1;
 
-        ID3D11ShaderResourceView* renderTextureResourceView;
+        ID3D11ShaderResourceView* shaderResourceView;
         hr = m_D3D11device->CreateShaderResourceView(
             params.m_buffer.D3D11->colorBuffer, &shaderResourceViewDesc,
-            &renderTextureResourceView);
+            &shaderResourceView);
         if (FAILED(hr)) {
             std::cerr << "RenderManagerD3D11Base::PresentEye(): Could not "
                          "create resource view for eye " << params.m_index
@@ -1141,7 +1141,7 @@ namespace renderkit {
                       << std::endl;
             return false;
         }
-        m_D3D11Context->PSSetShaderResources(0, 1, &renderTextureResourceView);
+        m_D3D11Context->PSSetShaderResources(0, 1, &shaderResourceView);
 
         // @todo Record the state and re-set it to what it was originally so
         // we don't mess with client rendering.
@@ -1160,7 +1160,7 @@ namespace renderkit {
         m_D3D11Context->Draw(m_quadVertexCount[params.m_index], 0);
 
         // Clean up after ourselves.
-        renderTextureResourceView->Release();
+        shaderResourceView->Release();
         return true;
     }
 
