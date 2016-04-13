@@ -326,10 +326,6 @@ namespace osvr {
                         // check so that we don't have a race to read it.
                         std::lock_guard<std::mutex> lock(mLock);
                         if (mFirstFramePresented) {
-                            // Update the context so we get our callbacks called and
-                            // update tracker state, which will be read during the
-                            // time-warp calculation in our harnessed RenderManager.
-                            osvrClientUpdate(mRenderManager->m_context);
 
                             // make a new RenderBuffers array with the atw thread's buffers
                             std::vector<osvr::renderkit::RenderBuffer> atwRenderBuffers;
