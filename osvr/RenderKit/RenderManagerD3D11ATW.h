@@ -322,7 +322,8 @@ namespace osvr {
 
                     if (timeToPresent) {
                         // Lock our mutex so that we're not rendering while new buffers are
-                        // being presented.
+                        // being presented.  Do this outside of the mFirstFramePresented
+                        // check so that we don't have a race to read it.
                         std::lock_guard<std::mutex> lock(mLock);
                         if (mFirstFramePresented) {
                             // Update the context so we get our callbacks called and
