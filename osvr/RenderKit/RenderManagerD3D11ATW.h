@@ -43,9 +43,9 @@ namespace osvr {
         private:
             // Indices into the keys for the Render Thread
             const UINT rtAcqKey = 0;
-            const UINT rtRelKey = 1;
+            const UINT rtRelKey = 0;
             // Indices into the keys for the ATW thread
-            const UINT acqKey = 1;
+            const UINT acqKey = 0;
             const UINT relKey = 0;
 
             /// Holds the information needed to handle locking and unlocking of
@@ -244,7 +244,7 @@ namespace osvr {
                       }
                       // and lock the ATW thread's mutex
                       //std::cerr << "locking atwMutex " << (size_t)key << std::endl;
-                      hr = bufferInfoItr->second.atwMutex->AcquireSync(rtRelKey, INFINITE);
+                      hr = bufferInfoItr->second.atwMutex->AcquireSync(acqKey, INFINITE);
                       if (FAILED(hr)) {
                           std::cerr << "RenderManagerD3D11ATW::PresentRenderBuffersInternal "
                             << "Could not AcquireSync on the atw IDXGIKeyedMutex during present.";
