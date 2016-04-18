@@ -519,7 +519,7 @@ int main(int argc, char* argv[]) {
     // which maps to the nVidia or other vendor direct mode
     // to reduce the latency.
     osvr::renderkit::RenderManager* render =
-        osvr::renderkit::createRenderManager(context.get(), "OpenGL");
+        osvr::renderkit::createRenderManager(context.get(), "OpenGLcore");
 
     if ((render == nullptr) || (!render->doingOkay())) {
         std::cerr << "Could not create RenderManager" << std::endl;

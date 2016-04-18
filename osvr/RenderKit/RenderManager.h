@@ -655,6 +655,8 @@ namespace renderkit {
                 m_clientPredictionEnabled = false;
                 m_clientPredictionLocalTimeOverride = false;
 
+                m_core = false;
+
                 m_graphicsLibrary = GraphicsLibrary();
             }
             typedef enum {
@@ -740,6 +742,10 @@ namespace renderkit {
                 m_displayConfiguration; //< Display configuration
 
             std::string m_roomFromHeadName; //< Transform to use for head space
+
+            /// OpenGL Core profile (true) or Compatibility (false)
+            /// has no effect when using graphics libraries
+            bool m_core;
 
             /// Graphics library (device/context) to use instead of creating one
             /// if the pointer is non-NULL.  Note that the appropriate context
@@ -1450,6 +1456,8 @@ namespace renderkit {
     /// to and the appropriate pointer within it.
     ///   This function hangs until it receives configuration information from
     /// a running server connected to by an OSVR context that it creates.
+    /// @param core Whether to use the OpenGL Core profile. Has no effect when
+    /// Not using the OpenGL graphicsLibrary
     /// @return Pointer to a created object or nullptr if it cannot create one
     /// given the configuration read from the server.
     RenderManager OSVR_RENDERMANAGER_EXPORT*

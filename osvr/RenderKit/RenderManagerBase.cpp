@@ -2574,7 +2574,13 @@ namespace renderkit {
         p.m_verticalSync = pipelineConfig->getVerticalSync();
         p.m_verticalSyncBlocksRendering =
             pipelineConfig->getVerticalSyncBlockRendering();
-        p.m_renderLibrary = renderLibraryName;
+
+        if (renderLibraryName == "OpenGLcore") {
+            p.m_renderLibrary = "OpenGL";
+            p.m_core = true;;
+        } else {
+            p.m_renderLibrary = renderLibraryName;
+        }
 
         p.m_windowTitle = pipelineConfig->getWindowTitle();
         p.m_windowFullScreen = pipelineConfig->getWindowFullScreen();

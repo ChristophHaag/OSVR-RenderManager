@@ -122,6 +122,7 @@ namespace renderkit {
             int bitsPerPixel;        //< How many bits per pixel?
             unsigned numBuffers;     //< How many buffers (2 = double buffering)
             bool visible;            //< Should the window be initially visible?
+            bool core;               //< Use OpenGL Core (true) or Compatibility (false) profile
             GLContextParams() {
                 windowTitle = "OSVR";
                 displayIndex = -1;
@@ -133,6 +134,7 @@ namespace renderkit {
                 bitsPerPixel = 8;
                 numBuffers = 2;
                 visible = true;
+                core = false; // compatibility by default, not to break existing apps
             }
         };
         bool addOpenGLContext(GLContextParams p);

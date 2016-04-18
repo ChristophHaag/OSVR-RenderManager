@@ -275,12 +275,12 @@ namespace renderkit {
         SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, p.bitsPerPixel);
         SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
         SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
-#ifdef __APPLE__
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
-            SDL_GL_CONTEXT_PROFILE_CORE);
-#endif
+        if (p.core) {
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
+                SDL_GL_CONTEXT_PROFILE_CORE);
+        }
 
         // For now, append the display ID to the title.
         /// @todo Make a different title for each window in the config file
@@ -391,6 +391,7 @@ namespace renderkit {
         p.bitsPerPixel = m_params.m_bitsPerColor;
         p.numBuffers = m_params.m_numBuffers;
         p.visible = true;
+        p.core = m_params.m_core;
         for (size_t display = 0; display < GetNumDisplays(); display++) {
             if (!addOpenGLContext(p)) {
                 std::cerr << "RenderManagerOpenGL::OpenDisplay: Cannot get GL "
