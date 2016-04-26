@@ -412,7 +412,14 @@ namespace renderkit {
         //======================================================
         // We need to call glewInit() so that we have access to
         // the extensions needed below.
-        glewExperimental = true; // Needed for core profile
+        char* glewver = strdup((char *)glewGetString(GLEW_VERSION));
+        int glewmajor = atoi(strtok (glewver,"."));
+        if (glewmajor < 2) {
+            std::cout << "GLEW Version " << glewGetString(GLEW_VERSION)
+                      << " is older than 2.0.0. "
+                      << "Enabling GLEW experimental mode..." << std::endl;
+            glewExperimental = true; // Needed for core profile
+        }
         if (glewInit() != GLEW_OK) {
             std::cerr
                 << "RenderManagerOpenGL::OpenDisplay: Can't initialize GLEW"
